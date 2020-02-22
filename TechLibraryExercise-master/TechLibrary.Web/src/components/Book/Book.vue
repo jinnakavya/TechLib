@@ -14,7 +14,6 @@
             <b-card-text>
                 {{ book.descr }}
             </b-card-text>
-            <b-button to="/" variant="primary">Back</b-button>
         </b-card>
 
         <b-card :title="book.title"
@@ -27,8 +26,9 @@
                 v-if="checked">
             <b-textarea v-model="book.descr" style="{overflow:auto;resize:none; height:170px;}" v-on:change="DecriptionChanged(book.descr)">
             </b-textarea>
-            <b-button to="/" variant="primary">Back</b-button>
         </b-card>
+        <b-button to="/" variant="primary" style="">Back</b-button>
+        <b-button :to="{ name: 'addbook'}" variant="success" style="margin-left:20px">ADD</b-button>
     </div>
 </template>
 <script lang="ts" src="./book.ts"></script>
