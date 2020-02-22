@@ -27,9 +27,9 @@
                 v-if="checked">
             <b-textarea v-model="book.descr" style="{overflow:auto;resize:none; height:170px;}" v-on:change="DecriptionChanged(book.descr)">
             </b-textarea>
-            <b-button :to="{ name: 'addbook'}" variant="primary" style="float:right">ADD</b-button>
             <b-button to="/" variant="primary">Back</b-button>
         </b-card>
+        <b-button :to="{ name: 'addbook'}" variant="success" style="">ADD</b-button>
     </div>
 </template>
 <script lang="ts" src="./book.ts"></script>
