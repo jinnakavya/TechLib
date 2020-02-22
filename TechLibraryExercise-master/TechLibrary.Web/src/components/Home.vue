@@ -1,20 +1,22 @@
 <template>
     <div class="home">
         <b-pagination aria-controls="booksTable" size="md" style="margin-top:20px;"
-                      :total-rows="totalRows" 
+                      :total-rows="totalRows"
                       :per-page="10" limit="10"
-                      v-model="currentPage" 
+                      v-model="currentPage"
                       @input="OnPagination(currentPage)">
         </b-pagination>
-        <p class="mt-3">Current Page: {{ currentPage }}</p>
-        <b-table id="booksTable" striped hover :items="posts" :fields="fields" responsive="sm">
-            <template v-slot:cell(thumbnailUrl)="data">
-                <b-img :src="data.value" thumbnail fluid></b-img>
-            </template>
-            <template v-slot:cell(title_link)="data">
-                <b-link :to="{ name: 'book_view', params: { 'id' : data.item.bookId } }">{{ data.item.title }}</b-link>
-            </template>
-        </b-table>
+        <b-form-input type="text" class="col-md-5" v-model="search" placeholder="Search" @input="OnPagination(currentPage,search)">
+        </b-form-input>
+            <p class="mt-3">Current Page: {{ currentPage }}</p>
+            <b-table id="booksTable" striped hover :items="posts" :fields="fields" responsive="sm">
+                <template v-slot:cell(thumbnailUrl)="data">
+                    <b-img :src="data.value" thumbnail fluid></b-img>
+                </template>
+                <template v-slot:cell(title_link)="data">
+                    <b-link :to="{ name: 'book_view', params: { 'id' : data.item.bookId } }">{{ data.item.title }}</b-link>
+                </template>
+            </b-table>
     </div>
 </template>
 
