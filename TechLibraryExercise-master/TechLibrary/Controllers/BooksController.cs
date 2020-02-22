@@ -34,7 +34,17 @@ namespace TechLibrary.Controllers
 
             return Ok(books);
         }
+        [HttpPost]
+        public async Task<IActionResult> AddBook([FromBody]Book book)
+        {
+            _logger.LogInformation($"Add book");
 
+            var response = await _bookService.Add(book);
+
+            var bookResponse = _mapper.Map<BookResponse>(response);
+
+            return Ok(bookResponse);
+        }
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
