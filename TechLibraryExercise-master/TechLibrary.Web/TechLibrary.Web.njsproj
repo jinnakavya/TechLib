@@ -35,6 +35,7 @@
     <Content Include="public\favicon.ico" />
     <Content Include="public\index.html" />
     <Content Include="src\App.vue" />
+    <Content Include="src\components\AddBook\AddBook.vue" />
     <Content Include="src\components\Book\Book.vue">
       <SubType>Code</SubType>
     </Content>
@@ -52,12 +53,14 @@
     <Folder Include="src\assets\" />
     <Folder Include="src\components\" />
     <Folder Include="src\components\Book\" />
+    <Folder Include="src\components\AddBook\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="babel.config.js" />
     <Content Include="src\main.js" />
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="src\components\AddBook\addBook.ts" />
     <TypeScriptCompile Include="src\components\Book\book.ts" />
   </ItemGroup>
   <PropertyGroup>
