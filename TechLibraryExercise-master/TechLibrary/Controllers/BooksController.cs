@@ -25,15 +25,13 @@ namespace TechLibrary.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll([FromQuery]PaginationandFilterParameters paginationParameters = null)
         {
             _logger.LogInformation("Get all books");
 
-            var books = await _bookService.GetBooksAsync();
+            var books = await _bookService.GetBooksAsync(paginationParameters);
 
-            var bookResponse = _mapper.Map<List<BookResponse>>(books);
-
-            return Ok(bookResponse);
+            return Ok(books);
         }
 
         [HttpGet("{id}")]
