@@ -31,5 +31,5 @@
         <b-button :to="{ name: 'addbook'}" variant="success" style="margin-left:20px">ADD</b-button>
     </div>
 </template>
-<script lang="ts" src="./book.ts"></script>
+<script lang="ts" src="./book.js"></script>
 
