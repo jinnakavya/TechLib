@@ -4,6 +4,9 @@
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
     <Name>TechLibrary.Web</Name>
     <RootNamespace>TechLibrary.Web</RootNamespace>
+    <EnableTypeScript>true</EnableTypeScript>
+    <TypeScriptSourceMap>true</TypeScriptSourceMap>
+    <TypeScriptModuleKind>CommonJS</TypeScriptModuleKind>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -32,7 +35,7 @@
     <Content Include="public\favicon.ico" />
     <Content Include="public\index.html" />
     <Content Include="src\App.vue" />
-    <Content Include="src\components\Book.vue">
+    <Content Include="src\components\Book\Book.vue">
       <SubType>Code</SubType>
     </Content>
     <Content Include="src\components\Home.vue" />
@@ -48,10 +51,14 @@
     <Folder Include="src\" />
     <Folder Include="src\assets\" />
     <Folder Include="src\components\" />
+    <Folder Include="src\components\Book\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="babel.config.js" />
     <Content Include="src\main.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="src\components\Book\book.ts" />
   </ItemGroup>
   <PropertyGroup>
     <PostBuildEvent>
