@@ -32,7 +32,7 @@ namespace TechLibrary.Services
             try
             {
                 var queryable = _dataContext.Books.AsQueryable();
-                if (!String.IsNullOrEmpty(paginationParameters.Term))
+                if (!String.IsNullOrEmpty(paginationParameters.SearchText))
                     queryable = SearchForValue(queryable, paginationParameters);
                 result = await PaginateBookRecords(queryable, paginationParameters);
             }
@@ -67,10 +67,10 @@ namespace TechLibrary.Services
         private IQueryable<Book> SearchForValue(IQueryable<Book> queryable, PaginationandFilterParameters filterParameters)
         {
             //return queryable.Where(x => (x.ShortDescr.ToLower().Contains(filterParameters.Term) || x.Title.ToLower().Contains(filterParameters.Term)));
-            return queryable.Where(o => (o.Title.ToLower().Contains(filterParameters.Term.Trim().ToLower())
-                                || o.ShortDescr.ToLower().Contains(filterParameters.Term.Trim().ToLower())
-                                || o.ISBN.ToLower().Contains(filterParameters.Term.Trim().ToLower())
-                                || o.LongDescr.ToLower().Contains(filterParameters.Term.Trim().ToLower())));
+            return queryable.Where(o => (o.Title.ToLower().Contains(filterParameters.SearchText.Trim().ToLower())
+                                || o.ShortDescr.ToLower().Contains(filterParameters.SearchText.Trim().ToLower())
+                                || o.ISBN.ToLower().Contains(filterParameters.SearchText.Trim().ToLower())
+                                || o.LongDescr.ToLower().Contains(filterParameters.SearchText.Trim().ToLower())));
         }
     }
 }
