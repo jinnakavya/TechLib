@@ -6,6 +6,7 @@ using AutoMapper;
 using TechLibrary.Domain;
 using TechLibrary.Models;
 using TechLibrary.Services;
+using System;
 
 namespace TechLibrary.Controllers
 {
@@ -43,6 +44,22 @@ namespace TechLibrary.Controllers
 
             var bookResponse = _mapper.Map<BookResponse>(book);
 
+            return Ok(bookResponse);
+        }
+        [HttpPut("{id}")]
+        public IActionResult UpdateBook(int id, [FromBody]Book book)
+        {
+            Book bookResponse = null;
+            try
+            {
+                _logger.LogInformation($"Update book");
+
+                var response = _bookService.Update(book);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Error while updating book", ex.Message);
+            }
             return Ok(bookResponse);
         }
     }

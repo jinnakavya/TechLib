@@ -15,6 +15,7 @@ namespace TechLibrary.Services
     {
         Task<PagedResponse<Book>> GetBooksAsync(PaginationandFilterParameters paginationParameters = null);
         Task<Book> GetBookByIdAsync(int bookid);
+        Book Update(Book bookChanges);
     }
 
     public class BookService : IBookService
@@ -47,7 +48,13 @@ namespace TechLibrary.Services
         {
             return await _dataContext.Books.SingleOrDefaultAsync(x => x.BookId == bookid);
         }
-
+        public Book Update(Book bookChanges)
+        {
+            _dataContext.Books.Update(bookChanges);
+            _dataContext.Entry(bookChanges).State = EntityState.Modified;
+            _dataContext.SaveChanges();
+            return bookChanges;
+        }
         private async Task<PagedResponse<Book>> PaginateBookRecords(IQueryable<Book> queryable, PaginationandFilterParameters paginationParameters = null)
         {
             PagedResponse<Book> result = new PagedResponse<Book>();
