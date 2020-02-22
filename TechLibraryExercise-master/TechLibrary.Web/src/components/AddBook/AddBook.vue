@@ -72,4 +72,4 @@
 
     </div>
 </template>
-<script lang="ts" src="./addBook.ts"></script>
+<script lang="ts" src="./addBook.js"></script>

@@ -17,9 +17,7 @@ namespace TechLibrary.Services
         Task<Book> GetBookByIdAsync(int bookid);
         Book Update(Book bookChanges);
         Task<Book> Add(Book book);
-
     }
-
     public class BookService : IBookService
     {
         private readonly DataContext _dataContext;
@@ -28,7 +26,6 @@ namespace TechLibrary.Services
         {
             _dataContext = dataContext;
         }
-
         public async Task<PagedResponse<Book>> GetBooksAsync(PaginationandFilterParameters paginationParameters = null)
         {
             PagedResponse<Book> result = new PagedResponse<Book>();
@@ -77,7 +74,6 @@ namespace TechLibrary.Services
             }
             return result;
         }
-
         private IQueryable<Book> SearchForValue(IQueryable<Book> queryable, PaginationandFilterParameters filterParameters)
         {
             return queryable.Where(o => (o.Title.ToLower().Contains(filterParameters.SearchText.Trim().ToLower())

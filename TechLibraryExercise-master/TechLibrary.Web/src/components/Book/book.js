@@ -1,33 +1,29 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var axios_1 = require("axios");
-exports.default = {
+import axios from 'axios';
+
+export default {
     name: 'Book',
     props: ["id"],
-    data: function () { return ({
+    data: () => ({
         book: null,
         checked: false,
         shortDescr: ""
-    }); },
-    mounted: function () {
-        var _this = this;
-        axios_1.default.get("https://localhost:5001/books/" + this.id)
-            .then(function (response) {
-            _this.book = response.data;
-            _this.shortDescr = _this.book.shortDescr;
-        });
+    }),
+    mounted() {
+        axios.get(`https://localhost:5001/books/${this.id}`)
+            .then(response => {
+                this.book = response.data;
+                this.shortDescr = this.book.shortDescr;
+            });
     },
     methods: {
-        DecriptionChanged: function (updatedBook) {
-            var _this = this;
+        DecriptionChanged(updatedBook) {
             this.book.ShortDescr = updatedBook;
             this.book.Descr = updatedBook;
-            axios_1.default.put("https://localhost:5001/books/" + this.id, this.book)
-                .then(function (response) {
-                _this.posts = response.data;
-                _this.checked = false;
-            });
+            axios.put(`https://localhost:5001/books`, this.book)
+                .then(response => {
+                    this.posts = response.data;
+                    this.checked = false;
+                });
         }
     }
-};
-//# sourceMappingURL=book.js.map
+}

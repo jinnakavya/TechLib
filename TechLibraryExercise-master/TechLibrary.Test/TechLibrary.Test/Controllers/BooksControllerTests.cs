@@ -73,24 +73,58 @@ namespace TechLibrary.Controllers.Tests
             var mockParameters = new PaginationandFilterParameters();
             mockParameters.PageSize = 7;
             mockParameters.PageNumber = 1;
-           
+
             PagedResponse<Book> mockData = new PagedResponse<Book>();
             mockData.Results = books;
             mockData.PageSize = 7;
             mockData.CurrentPage = 1;
-            
+
             //  Arrange
             _mockBookService.Setup(b => b.GetBooksAsync(mockParameters)).Returns(Task.FromResult(mockData));
             var sut = new BooksController(_mockLogger.Object, _mockBookService.Object, _mockMapper.Object);
-            
+
             //  Act
             var result = (OkObjectResult)await sut.GetAll(mockParameters);
             var objectValue = (PagedResponse<Book>)result.Value;
-            
+
             //  Assert
             Assert.AreEqual(mockParameters.PageSize, objectValue.PageSize);
         }
+        #endregion
 
+        #region Update
+        [Test()]
+        public void UpdateBooks_returnsOkStatusBoolAftersuccessfullyUpdating()
+        {
+            //set up
+            var book = new Book
+            {
+                BookId = TestContext.CurrentContext.Random.Next(),
+                Title = TestContext.CurrentContext.Random.GetString(5),
+                ShortDescr = TestContext.CurrentContext.Random.GetString(15),
+                LongDescr = TestContext.CurrentContext.Random.GetString(70),
+                ISBN = TestContext.CurrentContext.Random.Next().ToString(),
+                PublishedDate = RandomDateTime(new DateTime(2000, 1, 1), new DateTime(2100, 12, 31)).ToShortDateString(),
+            };
+            _mockBookService.Setup(b => b.Add(book)).Returns(Task.FromResult(book));
+            book.ISBN = "0000";
+            _mockBookService.Setup(b => b.Update(book)).Returns(book);
+            var sut = new BooksController(_mockLogger.Object, _mockBookService.Object, _mockMapper.Object);
+
+            //  Act
+            var actionResult = (OkObjectResult)sut.UpdateBook(book);
+
+            //  Assert
+            // Check type returned
+            var objectValue = actionResult.Value;
+            Assert.That(objectValue, Is.InstanceOf(typeof(Book)));
+
+            // Check result = true
+            var value = (Book)objectValue;
+            Assert.That(objectValue, Is.Not.Null);
+            Assert.That(actionResult.StatusCode, Is.EqualTo(200));
+        }
+        #endregion
         #region Helpers
         private List<Book> CreateBooks(int noOfBooks)
         {
@@ -124,5 +158,4 @@ namespace TechLibrary.Controllers.Tests
         }
         #endregion
     }
-    #endregion
 }

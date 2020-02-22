@@ -56,15 +56,15 @@ namespace TechLibrary.Controllers
 
             return Ok(bookResponse);
         }
-        [HttpPut("{id}")]
-        public IActionResult UpdateBook(int id, [FromBody]Book book)
+        [HttpPut]
+        public IActionResult UpdateBook([FromBody]Book book)
         {
             Book bookResponse = null;
             try
             {
                 _logger.LogInformation($"Update book");
 
-                var response = _bookService.Update(book);
+                bookResponse = _bookService.Update(book);
             }
             catch (Exception ex)
             {
